@@ -1,5 +1,5 @@
 # BIFS617 ORF Finder Skeleton
-# Team members: Arjit,
+# Team members: Arjit, Seth Nelson
 # Date: 
 # Fill in your code where prompted.
 
