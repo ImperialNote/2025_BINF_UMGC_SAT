@@ -1,6 +1,6 @@
 # BIFS617 ORF Finder Skeleton
-# Team members:
-# Date:
+# Team members: Arjit,
+# Date: 
 # Fill in your code where prompted.
 
 def load_fasta(filepath):
