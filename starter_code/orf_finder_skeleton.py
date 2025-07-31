@@ -71,15 +71,16 @@ def find_orfs(header, sequence, min_len, strand="+"):
     # Team Member Name: Seth    
     # TODO: Identify ORFs in all 3 reading frames for one strand
 
-    #Establishes two arrays of codons and dictionaries for each value stored, in order and tied to the header
+    #Establishes two arrays of codons and dictionaries for each value stored, in order and tied to header
     start_codons = ["ATG", "TTG", "GTG"]
     stop_codons = ["TAA", "TAG", "TGA"]
     ORF_diction = {header: []}
     frame_diction = {header: []}
     pos_diction = {header: []}
     len_diction = {header: []}
+    dir_diction = {header: []}
 
-    #Values used to iterate through both text and while loop to truncate to one loop for all 3 reading frames
+    #Values used to iterrate through both text and while loop to truncate to one loop for all 3 reading frames
     z = 0
     r_frame = 1
     
@@ -105,6 +106,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
                             frame_diction[header].append(r_frame)
                             pos_diction[header].append(i + 1)
                             len_diction[header].append(len(total_ORF))
+                            dir_diction[header].append(strand)
                             break
                     else:
                         continue
@@ -112,7 +114,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
         z += 1
         r_frame += 1
 
-    return frame_diction, pos_diction, len_diction, ORF_diction
+    return [frame_diction, pos_diction, len_diction, dir_diction, ORF_diction]
 
 
 def format_orf_output(header, frame, position, seq):
@@ -136,9 +138,49 @@ def create_visualization(orf_data, output_path):
     pass
 
 def main():
-    # Team Member Name: Seth
+    # Team Member Name: Seth, Arjit, Tyler
     # TODO: Implement user input, sequence processing, and ORF printing and save the file
-    Pass
+    stored_reverse_comp = {}
+    stored_complete_header = []
+    stored_complete_fra = {[]}
+    stored_complete_pos = {[]}
+    stored_complete_len = {[]}
+    stored_complete_dir = {[]}
+    stored_complete_ORF = {[]}
+    
+    user_minlen = input("Please enter a minimum length for ORFs:")
+    user_filepath = input("Please enter a FASTA formatted file for ORF check:")
+    
+    with open(output_file, "w") as f:   #Clears file once when first running
+        f.close()
+        
+    while user_filepath.lower() != "end" and user_filepath.lower() != "end":  #Runs until user inputs end characters
+        try:    #Used to avoid breaking program if wrong file entered
+            stored_fasta_info = load_fasta(user_filepath)  #headers and sequences stored from FASTA file in dictionary
+
+            for key, value in stored_fasta_info:
+
+                positive_complete_ORF = find_orfs(key, value, user_minlen)
+                stored_complete_header = #Need to convert code to also return a list of header just like the rest and add here
+                stored_complete_fra[key] = positive_complete_ORF[0]
+                stored_complete_pos[key] = positive_complete_ORF[1]
+                stored_complete_len[key] = positive_complete_ORF[2]
+                stored_complete_dir[key] = positive_complete_ORF[3]
+                stored_complete_ORF[key] = positive_complete_ORF[4]
+
+                stored_reverse_comp[key] = reverse_complement(value)    #stores dictionary of repeat header, but with reverse complement
+                negative_complete_ORF = find_orfs(key, stored_reverse_comp[key], user_minlen, "-")
+                stored_complete_fra[key].append(negatvive_complete_ORF[0])
+                stored_complete_pos[key].append(negatvive_complete_ORF[1])
+                stored_complete_len[key].append(negatvive_complete_ORF[2])
+                stored_complete_dir[key].append(negatvive_complete_ORF[3])
+                stored_complete_ORF[key].append(negatvive_complete_ORF[4])
+
+                user_filepath = input("ORF check complete. enter a new file or type 'End' to quit:")
+                    
+        except FileNotFoundError:
+            user_file = input("File not found, enter a correct file name or type 'End' to quit:")
+    pass
 
 
 #Test if the code worked by printing the
