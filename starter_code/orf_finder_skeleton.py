@@ -178,11 +178,11 @@ def main():
                 stored_complete_dir[h_key].append(negative_complete_ORF[3])
                 stored_complete_ORF[h_key].append(negative_complete_ORF[4])
 
-                for i in len(stored_complete_fra[h_key]):
+                for i in len(stored_complete_fra[h_key]):   #Iterates through amount of values in list stored in dictionary used to call each specific "matches" as individual input to output format
                     
                     stored_all_orf_output_dictions.append(format_orf_output(h_key, stored_complete_fra[h_key][i], stored_complete_pos[h_key][i], stored_complete_ORF[h_key][i])
 
-                for z in len(stored_all_orf_output):
+                for z in len(stored_all_orf_output):    #Iterates through TOTAL dictionaries created from output function and uses them as input for visualization
                     create_visualization(stored_all_orf_output[i], OUTPUT_FILE)
 
                 user_filepath = input("ORF check complete. enter a new file or type 'End' to quit:")
