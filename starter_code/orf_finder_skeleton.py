@@ -147,34 +147,43 @@ def main():
     stored_complete_len = {[]}
     stored_complete_dir = {[]}
     stored_complete_ORF = {[]}
+
+    stored_all_orf_output_dictions = []
     
     user_minlen = input("Please enter a minimum length for ORFs:")
     user_filepath = input("Please enter a FASTA formatted file for ORF check:")
     
-    with open(output_file, "w") as f:   #Clears file once when first running
+    with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
         f.close()
         
-    while user_filepath.lower() != "end" and user_filepath.lower() != "end":  #Runs until user inputs end characters
+    while user_filepath.lower() != "end":  #Runs until user inputs end characters
         try:    #Used to avoid breaking program if wrong file entered
             stored_fasta_info = load_fasta(user_filepath)  #headers and sequences stored from FASTA file in dictionary
 
-            for key, value in stored_fasta_info:
+            for h_key, value in stored_fasta_info:
 
-                positive_complete_ORF = find_orfs(key, value, user_minlen)
+                positive_complete_ORF = find_orfs(h_key, value, user_minlen)
                 stored_complete_header = #Need to convert code to also return a list of header just like the rest and add here
-                stored_complete_fra[key] = positive_complete_ORF[0]
-                stored_complete_pos[key] = positive_complete_ORF[1]
-                stored_complete_len[key] = positive_complete_ORF[2]
-                stored_complete_dir[key] = positive_complete_ORF[3]
-                stored_complete_ORF[key] = positive_complete_ORF[4]
+                stored_complete_fra[h_key] = positive_complete_ORF[0]
+                stored_complete_pos[h_key] = positive_complete_ORF[1]
+                stored_complete_len[h_key] = positive_complete_ORF[2]
+                stored_complete_dir[h_key] = positive_complete_ORF[3]
+                stored_complete_ORF[h_key] = positive_complete_ORF[4]
 
-                stored_reverse_comp[key] = reverse_complement(value)    #stores dictionary of repeat header, but with reverse complement
-                negative_complete_ORF = find_orfs(key, stored_reverse_comp[key], user_minlen, "-")
-                stored_complete_fra[key].append(negatvive_complete_ORF[0])
-                stored_complete_pos[key].append(negatvive_complete_ORF[1])
-                stored_complete_len[key].append(negatvive_complete_ORF[2])
-                stored_complete_dir[key].append(negatvive_complete_ORF[3])
-                stored_complete_ORF[key].append(negatvive_complete_ORF[4])
+                stored_reverse_comp[h_key] = reverse_complement(value)    #stores dictionary of repeat header, but with reverse complement
+                negative_complete_ORF = find_orfs(h_key, stored_reverse_comp[h_key], user_minlen, "-")
+                stored_complete_fra[h_key].append(negative_complete_ORF[0])
+                stored_complete_pos[h_key].append(negative_complete_ORF[1])
+                stored_complete_len[h_key].append(negative_complete_ORF[2])
+                stored_complete_dir[h_key].append(negative_complete_ORF[3])
+                stored_complete_ORF[h_key].append(negative_complete_ORF[4])
+
+                for i in len(stored_complete_fra[h_key]):
+                    
+                    stored_all_orf_output_dictions.append(format_orf_output(h_key, stored_complete_fra[h_key][i], stored_complete_pos[h_key][i], stored_complete_ORF[h_key][i])
+
+                for z in len(stored_all_orf_output):
+                    create_visualization(stored_all_orf_output[i], OUTPUT_FILE)
 
                 user_filepath = input("ORF check complete. enter a new file or type 'End' to quit:")
                     
