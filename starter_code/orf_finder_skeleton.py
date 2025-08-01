@@ -6,8 +6,6 @@
 def load_fasta(filepath):
     # Team Member Name: Tyler
     # TODO: Parse a multi-line FASTA file, return dictionary {header: sequence}
-    Pass
-def load_fasta(filepath):
     # We will store the results in the dictionary called sequences: {header: sequence}
     sequences = {}
     # Open the file for reading
@@ -41,20 +39,12 @@ def load_fasta(filepath):
     file.close()
     return sequences
 
-
-#Test if the code worked by printing the dictionary
-fasta_dict = load_fasta("Example.fasta")
-print(f"Loaded {len(fasta_dict)} sequences.")
-print(fasta_dict)
-
-
-
+ 
 
 def reverse_complement(seq):
     # Team Member Name: Arjit
     # TODO: Return reverse complement of sequence (optional: use Bio.Seq)
     
-
 #First, I create a complement base map to get the reverse complement of whatever is loaded into the load_fasta function
 Complement_map = {‘A’: ‘T’, ‘T’ : ‘A’, ‘C’: ‘G’, ‘G’:’C’, ‘N’:’N’}
 # N is if a base is not ATC or G [usually cut off due to software or user error]
@@ -64,7 +54,7 @@ Complement_map = {‘A’: ‘T’, ‘T’ : ‘A’, ‘C’: ‘G’, ‘G’
 	complement_bases = [complement_map.get(base.upper(), ‘N’) for base in reversed_seq]
 # Joins the list of bases back into a string (will be the complementary string)
 	return “”.join(complement_bases)
-Pass
+ 
 
 def find_orfs(header, sequence, min_len, strand="+"):
                                                     
@@ -101,7 +91,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
                     if current_codon in stop_codons:    #Begins check to see if ORF meets minimum requirements
                         if len(total_ORF) <= min_len:        #Breaks loop if too short
                             break
-                        else:           #Passes both: contains a stop codon and longer than minimum
+                        else:           # es both: contains a stop codon and longer than minimum
                             ORF_diction[header].append(total_ORF)                           #Stores ORF and all other values in appropriate dictionaries
                             frame_diction[header].append(r_frame)
                             pos_diction[header].append(i + 1)
@@ -115,7 +105,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
         r_frame += 1
 
     return [frame_diction, pos_diction, len_diction, dir_diction, ORF_diction]
-
+ 
 
 def format_orf_output(header, frame, position, seq):
     # Team Member Name: Arjit
@@ -130,12 +120,12 @@ structured_ entry = f”{header}\n{seq}\n”
 # This returns a properly formatted FASTA header and codon-seperated sequence
 return structured_entry
 
-pass
+ 
 
 def create_visualization(orf_data, output_path):
     # Team Member Name: Tyler
     # TODO: create a visualization, save the file, for your ORF output
-    pass
+     
 
 def main():
     # Team Member Name: Seth, Arjit, Tyler
@@ -189,7 +179,7 @@ def main():
                     
         except FileNotFoundError:
             user_file = input("File not found, enter a correct file name or type 'End' to quit:")
-    pass
+     
 
 
 #Test if the code worked by printing the
