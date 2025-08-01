@@ -131,17 +131,19 @@ def main():
     # Team Member Name: Seth, Arjit, Tyler
     # TODO: Implement user input, sequence processing, and ORF printing and save the file
     stored_reverse_comp = {}
-    stored_complete_header = []
-    stored_complete_fra = {[]}
-    stored_complete_pos = {[]}
-    stored_complete_len = {[]}
-    stored_complete_dir = {[]}
-    stored_complete_ORF = {[]}
+    stored_complete_fra = {}
+    stored_complete_pos = {}
+    stored_complete_len = {}
+    stored_complete_dir = {}
+    stored_complete_ORF = {}
 
-    stored_all_orf_output_dictions = []
+    #this is for visualization function. Because unsure if we can add function variables, going with input of two lists in one variable: vis func does not then need edit
+    stored_len_fra = []
     
-    user_minlen = input("Please enter a minimum length for ORFs:")
-    user_filepath = input("Please enter a FASTA formatted file for ORF check:")
+    #default user_minlen set to 5 as instructed in project outline
+    user_minlen = 5
+    user_minlen = int(input("Please enter a minimum length for ORFs: "))
+    user_filepath = input("Please enter a FASTA formatted file for ORF check: ")
     
     with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
         f.close()
@@ -150,10 +152,9 @@ def main():
         try:    #Used to avoid breaking program if wrong file entered
             stored_fasta_info = load_fasta(user_filepath)  #headers and sequences stored from FASTA file in dictionary
 
-            for h_key, value in stored_fasta_info:
+            for h_key, value in stored_fasta_info.items():
 
                 positive_complete_ORF = find_orfs(h_key, value, user_minlen)
-                stored_complete_header = #Need to convert code to also return a list of header just like the rest and add here
                 stored_complete_fra[h_key] = positive_complete_ORF[0]
                 stored_complete_pos[h_key] = positive_complete_ORF[1]
                 stored_complete_len[h_key] = positive_complete_ORF[2]
@@ -168,17 +169,27 @@ def main():
                 stored_complete_dir[h_key].append(negative_complete_ORF[3])
                 stored_complete_ORF[h_key].append(negative_complete_ORF[4])
 
-                for i in len(stored_complete_fra[h_key]):   #Iterates through amount of values in list stored in dictionary used to call each specific "matches" as individual input to output format
-                    
-                    stored_all_orf_output_dictions.append(format_orf_output(h_key, stored_complete_fra[h_key][i], stored_complete_pos[h_key][i], stored_complete_ORF[h_key][i])
+                #Iterates through number of ORFs and pulls single value from each list, stores as single value, and passes that to format function for printing
+                for i in range(len(stored_complete_ORF[h_key])):
+                    orf_seq = stored_complete_ORF[h_key][i]
+                    frame = stored_complete_fra[h_key][i]
+                    pos = stored_complete_pos[h_key][i]
+                    length = stored_complete_len[h_key][i]
+                    direction = stored_complete_dir[h_key][i]
 
-                for z in len(stored_all_orf_output):    #Iterates through TOTAL dictionaries created from output function and uses them as input for visualization
-                    create_visualization(stored_all_orf_output[i], OUTPUT_FILE)
+                    output = format_orf_output(h_key, frame, pos, length, direction, orf_seq)   #Format function called with input of single variables
+                    print(output)
+
+                #Gives a list with two lists for visualization purposes: [[len], [fra]] ---- can be modified to include a header as well for visualization if needed
+                #Does this instead of just passing both lists separately because we are unsure if we can add variables to these functions
+                stored_len_fra.append(stored_complete_len[h_key], stored_complete_fra[h_key])
+                create_visualization(stored_len_fra, OUTPUT_FILE)
 
                 user_filepath = input("ORF check complete. enter a new file or type 'End' to quit:")
                     
         except FileNotFoundError:
             user_file = input("File not found, enter a correct file name or type 'End' to quit:")
+    pass
      
 
 
