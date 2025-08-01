@@ -45,14 +45,14 @@ def reverse_complement(seq):
     # Team Member Name: Arjit
     # TODO: Return reverse complement of sequence (optional: use Bio.Seq)
     
-#First, I create a complement base map to get the reverse complement of whatever is loaded into the load_fasta function
-Complement_map = {‘A’: ‘T’, ‘T’ : ‘A’, ‘C’: ‘G’, ‘G’:’C’, ‘N’:’N’}
-# N is if a base is not ATC or G [usually cut off due to software or user error]
-# Reverses the sequence using string slicing	
+    #First, I create a complement base map to get the reverse complement of whatever is loaded into the load_fasta function
+    Complement_map = {‘A’: ‘T’, ‘T’ : ‘A’, ‘C’: ‘G’, ‘G’:’C’, ‘N’:’N’}
+    # N is if a base is not ATC or G [usually cut off due to software or user error]
+    # Reverses the sequence using string slicing	
 	reversed_seq = seq[::-1]
-# Makes a list of complementary bases with all the adjustments
+    # Makes a list of complementary bases with all the adjustments
 	complement_bases = [complement_map.get(base.upper(), ‘N’) for base in reversed_seq]
-# Joins the list of bases back into a string (will be the complementary string)
+    # Joins the list of bases back into a string (will be the complementary string)
 	return “”.join(complement_bases)
  
 
@@ -111,14 +111,14 @@ def format_orf_output(header, frame, position, seq):
     # Team Member Name: Arjit
     # TODO: Return formatted FASTA header and codon-separated sequence
 
-# This structures the important information in the header of the output
-header = f”>{seq_id} | FRAME = {frame} | POS = {position} | LEN = {length} | {direction}”
+    # This structures the important information in the header of the output
+    header = f”>{seq_id} | FRAME = {frame} | POS = {position} | LEN = {length} | {direction}”
 
-# This adds the orf sequence in the proper place after the header
-structured_ entry = f”{header}\n{seq}\n”
+    # This adds the orf sequence in the proper place after the header
+    structured_ entry = f”{header}\n{seq}\n”
 
-# This returns a properly formatted FASTA header and codon-seperated sequence
-return structured_entry
+    # This returns a properly formatted FASTA header and codon-seperated sequence
+    return structured_entry
 
  
 
