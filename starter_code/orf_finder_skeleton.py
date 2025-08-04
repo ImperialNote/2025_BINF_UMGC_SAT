@@ -125,6 +125,26 @@ def format_orf_output(header, frame, position, seq):
 def create_visualization(orf_data, output_path):
     # Team Member Name: Tyler
     # TODO: create a visualization, save the file, for your ORF output
+	
+
+    import matplotlib.pyplot as plt    # unsure if to keep within function or call globally
+    for header, frames in frame_diction.items():                        # This will loop over each sequence header and its list of ORF frames
+        lengths = len_diction[header]                                  # we retrieve the list of ORF lengths for this header
+        safe = header.replace(" ", "_").replace("/", "_")           # make the header filename-safe by replacing spaces and slashes with underscores
+
+
+        # Histogram of ORF lengths
+        plt.figure()                                                # create the histogram
+        plt.hist(lengths, bins='auto')                             # plot the histogram of ORF lengths with automatic bin sizing
+        plt.xlabel('ORF Length (nt)')                              # label the x-axis
+        plt.ylabel('Frequency')                                    # label the y-axis
+        plt.title(f'ORF Length Distribution for {header}')         # set the plot title, including the sequence header
+        plt.tight_layout()                                         # adjust layout so labels and title fit without overlap
+        plt.savefig(f"{safe}_length_hist.png")       # save the figure to a PNG file, incorporating the output path and safe header
+        plt.close()          
+       
+     
+
      
 
 def main():
