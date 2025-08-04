@@ -53,7 +53,7 @@ def reverse_complement(seq):
     # Reverses the sequence using string slicing	
 	reversed_seq = seq[::-1]
     # Makes a list of complementary bases with all the adjustments
-	complement_bases = [complement_map.get(base.upper(), ‘N’) for base in reversed_seq]
+	complement_bases = [Complement_map.get(base.upper(), ‘N’) for base in reversed_seq]
     # Joins the list of bases back into a string (will be the complementary string)
 	return “”.join(complement_bases)
  
@@ -215,7 +215,7 @@ def main():
                     
         except FileNotFoundError:
             user_file = input("File not found, enter a correct file name or type 'End' to quit:")
-    pass
+    
      
 
 
