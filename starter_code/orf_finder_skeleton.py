@@ -48,7 +48,7 @@ def reverse_complement(seq):
     # TODO: Return reverse complement of sequence (optional: use Bio.Seq)
     
     #First, I create a complement base map to get the reverse complement of whatever is loaded into the load_fasta function
-    Complement_map = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'N': 'N'}
+  	Complement_map = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'N': 'N'}
     # N is if a base is not ATC or G [usually cut off due to software or user error]
     # Reverses the sequence using string slicing	
 	reversed_seq = seq[::-1]
