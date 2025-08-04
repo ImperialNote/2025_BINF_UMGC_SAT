@@ -48,14 +48,14 @@ def reverse_complement(seq):
     # TODO: Return reverse complement of sequence (optional: use Bio.Seq)
     
     #First, I create a complement base map to get the reverse complement of whatever is loaded into the load_fasta function
-  	Complement_map = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'N': 'N'}
+    Complement_map = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'N': 'N'}
     # N is if a base is not ATC or G [usually cut off due to software or user error]
     # Reverses the sequence using string slicing	
-	reversed_seq = seq[::-1]
+    reversed_seq = seq[::-1]
     # Makes a list of complementary bases with all the adjustments
-	complement_bases = [Complement_map.get(base.upper(), 'N') for base in reversed_seq]
+    complement_bases = [Complement_map.get(base.upper(), 'N') for base in reversed_seq]
     # Joins the list of bases back into a string (will be the complementary string)
-	return ''.join(complement_bases)
+    return ''.join(complement_bases)
  
 
 def find_orfs(header, sequence, min_len, strand="+"):
