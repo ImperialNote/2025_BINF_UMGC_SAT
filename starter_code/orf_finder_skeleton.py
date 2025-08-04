@@ -200,7 +200,11 @@ def main():
                     output = format_orf_output(h_key, frame, pos, length, direction, orf_seq)   #Format function called with input of single variables
                     print(output)
 
-                #Gives a list with two lists for visualization purposes: [[len], [fra]] ---- can be modified to include a header as well for visualization if needed
+                    # Write to output file (append mode)
+                    with open(OUTPUT_FILE, "a") as f_out:
+                        f_out.write(output + "\n")              
+		    
+		#Gives a list with two lists for visualization purposes: [[len], [fra]] ---- can be modified to include a header as well for visualization if needed
                 #Does this instead of just passing both lists separately because we are unsure if we can add variables to these functions
                 stored_len_fra.append(stored_complete_len[h_key], stored_complete_fra[h_key])
                 create_visualization(stored_len_fra, OUTPUT_FILE)
