@@ -3,6 +3,8 @@
 # Date: 07/18/2024
 # Fill in your code where prompted.
 
+OUTPUT_FILE = "orf_output.fasta"
+
 def load_fasta(filepath):
     # Team Member Name: Tyler
     # TODO: Parse a multi-line FASTA file, return dictionary {header: sequence}
