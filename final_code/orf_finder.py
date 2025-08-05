@@ -150,10 +150,13 @@ def create_visualization(orf_data, output_path):
 
 
     # colour bars by frame
-    colour_map = {1: "cornflowerblue",
-                  2: "darkorange",
-                  3: "seagreen",
-                  "-": "crimson"}
+    colour_map = {1: "cornflowerblue", # Frame +1
+                  2: "darkorange",     # Frame +2
+                  3: "seagreen",       # Frame +3
+                  4: "crimson",        # Frame -1
+                  5: "orchid",         # Frame -2
+                  6: "gold"}          # Frame -3
+
     for bar, frm in zip(bars, frames):
         bar.set_color(colour_map.get(frm, "grey"))
 
