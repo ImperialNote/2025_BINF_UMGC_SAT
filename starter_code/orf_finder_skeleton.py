@@ -194,7 +194,7 @@ def main():
     stored_complete_ORF = {}
 
     #this is for visualization function. Because unsure if we can add function variables, going with input of two lists in one variable: vis func does not then need edit
-    stored_len_fra = []
+    stored_len_fra = [[], []]
     
     #default user_minlen set to 5 as instructed in project outline
     user_minlen = 5
