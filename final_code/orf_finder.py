@@ -158,29 +158,29 @@ def create_visualization(orf_data, output_path):
 
     # Create custom legend handles. 
     legend_handles = [Patch(color=c, label=f"Frame {f}") for f, c in colour_map.items()]
-    # These lists will store the final properties for each bar to be plotted.
+    # These lists will store the final properties for each bar to be plotted
     all_x_positions = []      # The x-coordinate for each bar.
-    all_plot_lengths = []     # The height of each bar (the ORF length).
-    all_colors = []           # The color of each bar (based on its frame).
+    all_plot_lengths = []     # The height of each bar 
+    all_colors = []           # The color of each bar 
     # These lists will store the positions and labels for the sequence groups on the x-axis.
-    group_tick_positions = [] # The center position for each group of bars.
-    group_tick_labels = []    # The header for each sequence group.
-    # This is the core logic for arranging the bars on the plot.
+    group_tick_positions = [] # The center position for each group of bars
+    group_tick_labels = []    # The header for each sequence group
+    # This is the core logic for arranging the bars on the plot
     current_pos = 1  # Start plotting at x-position 1.
     GROUP_GAP = 2    # Define a blank space to insert between each sequence group.
-    # Iterate through the unique headers in their original order.
+    # Iterate through the unique headers in their original order
     for header in unique_headers_in_order:
         data = grouped_data[header]
         group_start_pos = current_pos
-        # For each ORF in the current sequence group...
+        # For each ORF in the current sequence group
         for i in range(len(data['lengths'])):
-            # Assign its x-position and add its data to the plot lists.
+            # Assign its x-position and add its data to the plot lists
             all_x_positions.append(current_pos)
             all_plot_lengths.append(data['lengths'][i])
             all_colors.append(colour_map.get(data['frames'][i], 'grey')) # Use grey for unexpected frames.
-            # Increment the position for the next bar in the same group.
+            # Increment the position for the next bar in the same group
             current_pos += 1
-        # Calculate the center of the current group to place the x-axis label.
+        # Calculate the center of the current group to place the x-axis label
         group_end_pos = current_pos - 1
         tick_pos = (group_start_pos + group_end_pos) / 2.0
         group_tick_positions.append(tick_pos)
@@ -194,7 +194,7 @@ def create_visualization(orf_data, output_path):
     plt.ylabel("Length (nt)")
     plt.title("ORF Lengths by Sequence and Reading Frame")
 
-    #Get the current axes object to customize the x-axis.
+    #Get the current axes object to customize the x-axis
     ax = plt.gca()
     #Replace the default numeric ticks with our custom group labels.
     ax.set_xticks(group_tick_positions)
