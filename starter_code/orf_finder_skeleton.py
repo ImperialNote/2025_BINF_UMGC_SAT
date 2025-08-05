@@ -204,7 +204,7 @@ def main():
                 pos = stored_complete_pos[i]
                 length = stored_complete_len[i]
                 direction = stored_complete_dir[i]
-                header = stored_headers[i]
+                header = stored_complete_headers[i]
                 
                 #Stores output variable for both printing to screen and to file
                 output = format_orf_output(h_key, frame, pos, length, direction, orf_seq)
