@@ -220,7 +220,7 @@ def main():
     		frames   = stored_complete_fra[h_key]   
    		stored_len_fra = [lengths, frames]
 
-		OUTPUT_VIS_FILE = f"{h_key}_orf_lengths.png"
+		OUTPUT_VIS_FILE = f"/output/visualization{h_key}_orf_lengths.png"
 
                 create_visualization(stored_len_fra, OUTPUT_VIS_FILE)
 
