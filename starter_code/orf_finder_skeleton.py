@@ -204,6 +204,7 @@ def main():
                 pos = stored_complete_pos[i]
                 length = stored_complete_len[i]
                 direction = stored_complete_dir[i]
+                header = stored_headers[i]
                 
                 #Stores output variable for both printing to screen and to file
                 output = format_orf_output(h_key, frame, pos, length, direction, orf_seq)
@@ -217,8 +218,8 @@ def main():
             stored_len_fra[0].extend(stored_complete_len)
             stored_len_fra[1].extend(stored_complete_fra)
 
-                OUTPUT_VIS_FILE = f"output/visualizations/{h_key}_orf_lengths.png"
-                create_visualization(stored_len_fra, OUTPUT_VIS_FILE)
+            OUTPUT_VIS_FILE = f"output/visualizations/{header}_orf_lengths.png"
+            create_visualization(stored_len_fra, OUTPUT_VIS_FILE)
 
             user_filepath = input("ORF check complete. Enter a new file or type 'End' to quit: ")
 
