@@ -72,7 +72,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
     len_diction = {header: []}
     dir_diction = {header: []}
 
-    #Values used to iterrate through both text and while loop to truncate to one loop for all 3 reading frames
+    #Values used to iterate through both text and while loop to truncate to one loop for all 3 reading frames
     z = 0
     r_frame = 1
     
@@ -93,7 +93,7 @@ def find_orfs(header, sequence, min_len, strand="+"):
                     if current_codon in stop_codons:    #Begins check to see if ORF meets minimum requirements
                         if len(total_ORF) <= min_len:        #Breaks loop if too short
                             break
-                        else:           # es both: contains a stop codon and longer than minimum
+                        else:           # es both: contains a stop codon and is longer than the minimum
                             ORF_diction[header].append(total_ORF)                           #Stores ORF and all other values in appropriate dictionaries
                             frame_diction[header].append(r_frame)
                             pos_diction[header].append(i + 1)
@@ -109,13 +109,21 @@ def find_orfs(header, sequence, min_len, strand="+"):
     return [frame_diction, pos_diction, len_diction, dir_diction, ORF_diction]
  
 
-def format_orf_output(header, frame, position, seq):
+def format_orf_output(header, frame, position, length, direction, seq):
     # Team Member Name: Arjit
     # TODO: Return formatted FASTA header and codon-separated sequence
-
+    # Convert direction symbol to text
+    if direction == "+":
+        direction_str = "FOR"
+    elif direction == "-":
+        direction_str = "REV"
+    else:
+        direction_str = direction  # Fall back to whatever was passed if not +/-
     # This structures the important information in the header of the output
-    header = f”>{seq_id} | FRAME = {frame} | POS = {position} | LEN = {length} | {direction}”
+    fasta_header = f">{header} | {frame} | {position} | {length} | {direction_str}"
 
+    codon_seq = ' '.join(seq[i:i+3] for i in range(0, len(seq), 3))
+    
     # This adds the orf sequence in the proper place after the header
     structured_ entry = f”{header}\n{seq}\n”
 
