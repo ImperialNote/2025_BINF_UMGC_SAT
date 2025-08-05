@@ -80,10 +80,12 @@ def find_orfs(header, sequence, min_len, strand="+"):
     len_diction = {header: []}
     dir_diction = {header: []}
 
-    #Values used to iterate through both text and while loop to truncate to one loop for all 3 reading frames
+   #Values used to iterrate through both text and while loop to truncate to one loop for all 3 reading frames
     z = 0
-    r_frame = 1
-    
+    if strand == "-":   #Checks if the the reading frames need to iterate through 4, 5, and 6 on negative strand
+        r_frame = 4
+    else:
+        r_frame = 1
     #While loop which controls and iterates through the reading frame
     while z < 3:
         for i in range(z, len(sequence), 3):
