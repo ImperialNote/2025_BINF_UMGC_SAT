@@ -1,6 +1,6 @@
 # BIFS617 ORF Finder Skeleton
 # Team members: Arjit, Seth, Tyler
-# Date: 07/18/2024
+# Date: 08/06/2024
 # Fill in your code where prompted.
 
 import matplotlib.pyplot as plt
