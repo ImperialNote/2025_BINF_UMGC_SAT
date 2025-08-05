@@ -211,7 +211,7 @@ def main():
             for h_key, value in stored_fasta_info.items():
 
                 #Positive strand ORFs
-                positive_complete_ORF = find_orfs(h_key, value, user_minlen)
+                positive_complete_ORF = find_orfs(h_key, value.upper(), user_minlen)
                 stored_complete_fra.extend(positive_complete_ORF[0][h_key])
                 stored_complete_pos.extend(positive_complete_ORF[1][h_key])
                 stored_complete_len.extend(positive_complete_ORF[2][h_key])
@@ -220,8 +220,8 @@ def main():
                 stored_complete_headers.extend([h_key] * len(positive_complete_ORF[4][h_key]))
 
                 #Negative strand ORFs
-                stored_reverse_comp[h_key] = reverse_complement(value)
-                negative_complete_ORF = find_orfs(h_key, stored_reverse_comp[h_key], user_minlen, "-")
+                reverse_comp_seq = reverse_complement(value.upper())
+                negative_complete_ORF = find_orfs(h_key, reverse_comp_seq, user_minlen, "-")
                 stored_complete_fra.extend(negative_complete_ORF[0][h_key])
                 stored_complete_pos.extend(negative_complete_ORF[1][h_key])
                 stored_complete_len.extend(negative_complete_ORF[2][h_key])
