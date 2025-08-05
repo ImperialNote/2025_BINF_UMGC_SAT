@@ -251,7 +251,7 @@ def main():
             vis_orf_data[1].extend(stored_complete_fra)
             vis_orf_data[2].extend(stored_complete_headers)
 
-            OUTPUT_VIS_FILE = f"output/visualizations/{header}_orf_lengths.png"
+            OUTPUT_VIS_FILE = f"output/visualizations/orf_lengths.png"
             create_visualization(vis_orf_data, OUTPUT_VIS_FILE)
 
             user_filepath = input("ORF check complete. Enter a new file or type 'End' to quit: ")
