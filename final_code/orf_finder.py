@@ -1,6 +1,6 @@
 # BIFS617 ORF Finder Skeleton
 # Team members: Arjit, Seth, Tyler
-# Date: 08/06/2024
+# Date: 07/18/2024
 # Fill in your code where prompted.
 
 import matplotlib.pyplot as plt
@@ -123,7 +123,6 @@ def format_orf_output(header, frame, position, length, direction, seq):
     # This returns a properly formatted FASTA header and codon-seperated sequence
     return structured_entry
 
-
 def create_visualization(orf_data, output_path):
     #This will unpack all three lists of data
     all_lengths, all_frames, all_headers = orf_data
@@ -183,7 +182,6 @@ def create_visualization(orf_data, output_path):
     plt.close()
     print(f"\nGrouped visualization saved to {output_path}")
 
-
 def main():
     # Team Member Name: Seth, Arjit, Tyler
     # TODO: Implement user input, sequence processing, and ORF printing and save the file
@@ -210,7 +208,7 @@ def main():
 
             for h_key, value in stored_fasta_info.items():
 
-                #Positive strand ORFs
+                 #Positive strand ORFs
                 positive_complete_ORF = find_orfs(h_key, value.upper(), user_minlen)
                 stored_complete_fra.extend(positive_complete_ORF[0][h_key])
                 stored_complete_pos.extend(positive_complete_ORF[1][h_key])
@@ -251,7 +249,7 @@ def main():
             vis_orf_data[1].extend(stored_complete_fra)
             vis_orf_data[2].extend(stored_complete_headers)
 
-            OUTPUT_VIS_FILE = f"output/visualizations/{header}_orf_lengths.png"
+            OUTPUT_VIS_FILE = f"output/visualizations/orf_lengths.png"
             create_visualization(vis_orf_data, OUTPUT_VIS_FILE)
 
             user_filepath = input("ORF check complete. Enter a new file or type 'End' to quit: ")
