@@ -3,7 +3,10 @@
 # Date: 07/18/2024
 # Fill in your code where prompted.
 
-OUTPUT_FILE = "orf_output.fasta"
+OUTPUT_FILE = "/output/orfs/orf_output.fasta"
+OUTPUT_VIS_FILE = "/output/visualization/orf_visualization.png"
+with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
+        f.close()
 
 def load_fasta(filepath):
     # Team Member Name: Tyler
@@ -152,10 +155,8 @@ def create_visualization(orf_data, output_path):
         plt.tight_layout()                                         # adjust layout so labels and title fit without overlap
         plt.savefig(f"{safe}_length_hist.png")       # save the figure to a PNG file, incorporating the output path and safe header
         plt.close()          
-       
-     
 
-     
+
 
 def main():
     # Team Member Name: Seth, Arjit, Tyler
@@ -174,9 +175,6 @@ def main():
     user_minlen = 5
     user_minlen = int(input("Please enter a minimum length for ORFs: "))
     user_filepath = input("Please enter a FASTA formatted file for ORF check: ")
-    
-    with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
-        f.close()
         
     while user_filepath.lower() != "end":  #Runs until user inputs end characters
         try:    #Used to avoid breaking program if wrong file entered
