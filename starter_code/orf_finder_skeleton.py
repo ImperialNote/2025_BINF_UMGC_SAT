@@ -125,7 +125,7 @@ def format_orf_output(header, frame, position, length, direction, seq):
     codon_seq = ' '.join(seq[i:i+3] for i in range(0, len(seq), 3))
     
     # This adds the orf sequence in the proper place after the header
-    structured_entry = f"{header}\n{seq}\n"
+    structured_entry = f"{fasta_header}\n{codon_seq}\n"
 
     # This returns a properly formatted FASTA header and codon-seperated sequence
     return structured_entry
