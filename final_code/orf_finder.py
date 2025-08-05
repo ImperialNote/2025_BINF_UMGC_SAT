@@ -124,64 +124,97 @@ def format_orf_output(header, frame, position, length, direction, seq):
     return structured_entry
 
 def create_visualization(orf_data, output_path):
-    #This will unpack all three lists of data
+ # Unpack the tuple of lists into individual variables for clarity.
     all_lengths, all_frames, all_headers = orf_data
+
+    # If there's no data, inform the user and exit the function early.
     if not all_lengths:
         print("No ORF data to visualize.")
         return
-    # Group the flat data lists into a dictionary for easier handling
+    # The input data is in flat lists. We would need to group ORFs by their
+    # sequence header to plot them together. A dictionary is a great way to do this.
     grouped_data = {}
+    # We also want to maintain the original order of sequences from the input file.
     unique_headers_in_order = []
+
     for header, length, frame in zip(all_headers, all_lengths, all_frames):
+        # If we haven't seen this sequence header before, initialize its entry.
         if header not in grouped_data:
             grouped_data[header] = {'lengths': [], 'frames': []}
-            unique_headers_in_order.append(header) # Preserve original order
+            unique_headers_in_order.append(header)   
+        # Append the current ORF's length and frame to the correct group.
         grouped_data[header]['lengths'].append(length)
         grouped_data[header]['frames'].append(frame)
-    # Calculate bar positions, colors, and labels for the grouped plot
+    # Set up the plot figure with a size that accommodates many bars.
     plt.figure(figsize=(16, 8))
+
+    # Define a consistent color mapping for each of the 6 possible reading frames.
     colour_map = {1: "cornflowerblue",
                   2: "darkorange",
                   3: "seagreen",
                   4: "crimson",
                   5: "orchid",
                   6: "gold"}
+
+    # Create custom legend handles. 
     legend_handles = [Patch(color=c, label=f"Frame {f}") for f, c in colour_map.items()]
-    all_x_positions = []
-    all_plot_lengths = []
-    all_colors = []
-    group_tick_positions = []
-    group_tick_labels = []
-    current_pos = 1
-    GROUP_GAP = 2 # The space between each sequence's bars
+    # These lists will store the final properties for each bar to be plotted.
+    all_x_positions = []      # The x-coordinate for each bar.
+    all_plot_lengths = []     # The height of each bar (the ORF length).
+    all_colors = []           # The color of each bar (based on its frame).
+    # These lists will store the positions and labels for the sequence groups on the x-axis.
+    group_tick_positions = [] # The center position for each group of bars.
+    group_tick_labels = []    # The header for each sequence group.
+    # This is the core logic for arranging the bars on the plot.
+    current_pos = 1  # Start plotting at x-position 1.
+    GROUP_GAP = 2    # Define a blank space to insert between each sequence group.
+    # Iterate through the unique headers in their original order.
     for header in unique_headers_in_order:
         data = grouped_data[header]
-        group_start_pos = current_pos     
+        group_start_pos = current_pos
+        # For each ORF in the current sequence group...
         for i in range(len(data['lengths'])):
+            # Assign its x-position and add its data to the plot lists.
             all_x_positions.append(current_pos)
             all_plot_lengths.append(data['lengths'][i])
-            all_colors.append(colour_map.get(data['frames'][i], 'grey'))
-            current_pos += 1  
+            all_colors.append(colour_map.get(data['frames'][i], 'grey')) # Use grey for unexpected frames.
+            # Increment the position for the next bar in the same group.
+            current_pos += 1
+        # Calculate the center of the current group to place the x-axis label.
         group_end_pos = current_pos - 1
         tick_pos = (group_start_pos + group_end_pos) / 2.0
         group_tick_positions.append(tick_pos)
-        group_tick_labels.append(header)        
+        group_tick_labels.append(header)
+        # Add the defined gap to the position to create space before the next group.
         current_pos += GROUP_GAP
-    #Plot the data and format the chart
+    # Create the bar chart in a single, efficient call.
     plt.bar(all_x_positions, all_plot_lengths, color=all_colors)
+    # Set the labels and title for the chart.
     plt.xlabel("Sequence Header")
     plt.ylabel("Length (nt)")
-    plt.title("ORF Lengths by Sequence and Reading Frame")  
-    ax = plt.gca()
-    ax.set_xticks(group_tick_positions)
-    ax.set_xticklabels(group_tick_labels, rotation=45, ha="right")
-    ax.xaxis.set_minor_locator(plt.NullLocator())
-    plt.legend(handles=legend_handles, title="Reading frame")
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=300)
-    plt.close()
-    print(f"\nGrouped visualization saved to {output_path}")
+    plt.title("ORF Lengths by Sequence and Reading Frame")
 
+    #Get the current axes object to customize the x-axis.
+    ax = plt.gca()
+    #Replace the default numeric ticks with our custom group labels.
+    ax.set_xticks(group_tick_positions)
+    # Set the labels and rotate them for better readability if they are long
+    ax.set_xticklabels(group_tick_labels, rotation=45, ha="right")
+    # Remove minor ticks from the x-axis to keep things nice and clean
+    ax.xaxis.set_minor_locator(plt.NullLocator())
+
+    #Add the custom legend to the plot.
+    plt.legend(handles=legend_handles, title="Reading Frame")
+    
+    # Adjust plot to prevent labels from being cut off
+    plt.tight_layout()
+
+    # Save the final figure
+    plt.savefig(output_path, dpi=300)
+    # Close the plot 
+    plt.close()
+
+    print(f"\nGrouped visualization saved to {output_path}")
 def main():
     # Team Member Name: Seth, Arjit, Tyler
     # TODO: Implement user input, sequence processing, and ORF printing and save the file
