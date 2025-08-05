@@ -3,6 +3,9 @@
 # Date: 07/18/2024
 # Fill in your code where prompted.
 
+import matplotlib.pyplot as plt
+import os
+
 OUTPUT_FILE = "/output/orfs/orf_output.fasta"
 OUTPUT_VIS_FILE = "/output/visualization/orf_visualization.png"
 with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
@@ -139,8 +142,6 @@ def create_visualization(orf_data, output_path):
     # Team Member Name: Tyler
     # TODO: create a visualization, save the file, for your ORF output
 	
-
-    import matplotlib.pyplot as plt    # unsure if to keep within function or call globally
     for header, frames in frame_diction.items():                        # This will loop over each sequence header and its list of ORF frames
         lengths = len_diction[header]                                  # we retrieve the list of ORF lengths for this header
         safe = header.replace(" ", "_").replace("/", "_")           # make the header filename-safe by replacing spaces and slashes with underscores
