@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 import os
 
 OUTPUT_FILE = "/output/orfs/orf_output.fasta"
-OUTPUT_VIS_FILE = "/output/visualization/orf_visualization.png"
+#OUTPUT_VIS_FILE = "/output/visualization/orf_visualization.png" ---> Potential use!
+
 with open(OUTPUT_FILE, "w") as f:   #Clears file once when first running
         f.close()
 
@@ -215,8 +216,13 @@ def main():
 		    
 		#Gives a list with two lists for visualization purposes: [[len], [fra]] ---- can be modified to include a header as well for visualization if needed
                 #Does this instead of just passing both lists separately because we are unsure if we can add variables to these functions
-                stored_len_fra.append(stored_complete_len[h_key], stored_complete_fra[h_key])
-                create_visualization(stored_len_fra, OUTPUT_FILE)
+                lengths  = stored_complete_len[h_key]   
+    		frames   = stored_complete_fra[h_key]   
+   		stored_len_fra = [lengths, frames]
+
+		OUTPUT_VIS_FILE = f"{h_key}_orf_lengths.png"
+
+                create_visualization(stored_len_fra, OUTPUT_VIS_FILE)
 
                 user_filepath = input("ORF check complete. enter a new file or type 'End' to quit:")
                     
