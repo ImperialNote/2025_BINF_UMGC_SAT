@@ -207,7 +207,7 @@ def main():
                 header = stored_complete_headers[i]
                 
                 #Stores output variable for both printing to screen and to file
-                output = format_orf_output(h_key, frame, pos, length, direction, orf_seq)
+                output = format_orf_output(header, frame, pos, length, direction, orf_seq)
                 print(output)
 
                 # Write to output file (append mode)
