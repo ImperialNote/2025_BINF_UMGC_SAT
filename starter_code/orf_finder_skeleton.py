@@ -165,7 +165,7 @@ def main():
     stored_complete_headers = []
 
     # this is for visualization function. Uses input of two lists: lengths and frames
-    stored_len_fra = [[], []]
+    vis_orf_data = [[], [], []]
 
     # default user_minlen set to 5 as instructed in project outline
     user_minlen = 5
@@ -215,11 +215,12 @@ def main():
                     f_out.write(output + "\n")
 
             # Visualization data prep
-            stored_len_fra[0].extend(stored_complete_len)
-            stored_len_fra[1].extend(stored_complete_fra)
+            vis_orf_data[0].extend(stored_complete_len)
+            vis_orf_data[1].extend(stored_complete_fra)
+            vis_orf_data[2].extend(stored_complete_headers)
 
             OUTPUT_VIS_FILE = f"output/visualizations/{header}_orf_lengths.png"
-            create_visualization(stored_len_fra, OUTPUT_VIS_FILE)
+            create_visualization(vis_orf_data, OUTPUT_VIS_FILE)
 
             user_filepath = input("ORF check complete. Enter a new file or type 'End' to quit: ")
 
