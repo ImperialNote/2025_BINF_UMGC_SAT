@@ -137,26 +137,40 @@ def format_orf_output(header, frame, position, length, direction, seq):
     return structured_entry
 
  
-
 def create_visualization(orf_data, output_path):
-    # Team Member Name: Tyler
-    # TODO: create a visualization, save the file, for your ORF output
-	
-    for header, frames in frame_diction.items():                        # This will loop over each sequence header and its list of ORF frames
-        lengths = len_diction[header]                                  # we retrieve the list of ORF lengths for this header
-        safe = header.replace(" ", "_").replace("/", "_")           # make the header filename-safe by replacing spaces and slashes with underscores
 
 
-        # Histogram of ORF lengths
-        plt.figure()                                                # create the histogram
-        plt.hist(lengths, bins='auto')                             # plot the histogram of ORF lengths with automatic bin sizing
-        plt.xlabel('ORF Length (nt)')                              # label the x-axis
-        plt.ylabel('Frequency')                                    # label the y-axis
-        plt.title(f'ORF Length Distribution for {header}')         # set the plot title, including the sequence header
-        plt.tight_layout()                                         # adjust layout so labels and title fit without overlap
-        plt.savefig(f"{safe}_length_hist.png")       # save the figure to a PNG file, incorporating the output path and safe header
-        plt.close()          
+    
+    lengths, frames = orf_data           # unpack the two lists
+    idx        = range(1, len(lengths)+1)
 
+#create figure
+    plt.figure()
+    bars = plt.bar(idx, lengths)
+
+
+    # colour bars by frame
+    colour_map = {1: "cornflowerblue",
+                  2: "darkorange",
+                  3: "seagreen",
+                  "-": "crimson"}
+    for bar, frm in zip(bars, frames):
+        bar.set_color(colour_map.get(frm, "grey"))
+
+#create labels and title
+    plt.xlabel("ORF number")
+    plt.ylabel("Length (nt)")
+    plt.title("ORF lengths by reading frame")
+
+
+    legend_handles = [Patch(color=c, label=f"Frame {f}")
+                      for f, c in colour_map.items()]
+    plt.legend(handles=legend_handles, title="Reading frame")
+
+#fix formating, save, and finish making graph
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300)
+    plt.close()
 
 
 def main():
