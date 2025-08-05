@@ -116,7 +116,7 @@ def format_orf_output(header, frame, position, length, direction, seq):
     else:
         direction_str = direction  # Fall back to whatever was passed if not +/- 
     # This structures the important information in the header of the output
-    fasta_header = f">{header} | {frame} | {position} | {length} | {direction_str}"
+    fasta_header = f">seqID: {header} | FRAME COUNT: {frame} | POSITION: {position} | LENGTH: {length} | DIRECTION: {direction_str}"
     codon_seq = ' '.join(seq[i:i+3] for i in range(0, len(seq), 3))
     # This adds the orf sequence in the proper place after the header
     structured_entry = f"{fasta_header}\n{codon_seq}\n"
